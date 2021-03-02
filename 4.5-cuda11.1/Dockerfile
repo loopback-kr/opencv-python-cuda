@@ -1,7 +1,7 @@
 FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
 # Change default Shell to bash
-SHELL ["/bin/bash", "-c"]
+# SHELL ["/bin/bash", "-c"]
 
 # Change Ubuntu repository address to DaumKaKao (For Rep. of Korea)
 # RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
@@ -16,14 +16,14 @@ RUN apt update && \
         build-essential \
         cmake \
         git \
-        vim \
-        tree \
-        zip \
+        # vim \
+        # tree \
+        # zip \
         unzip \
-        libsm6 \
-        libxext6 \
-        libxrender-dev \
-        libgl1-mesa-glx \
+        # libsm6 \
+        # libxext6 \
+        # libxrender-dev \
+        # libgl1-mesa-glx \
         wget \
         yasm \
         pkg-config \
