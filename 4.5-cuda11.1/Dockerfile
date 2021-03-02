@@ -25,7 +25,8 @@ RUN apt update && \
         # libxrender-dev \
         # libgl1-mesa-glx \
         wget \
-        yasm \
+        yasm
+RUN apt install -y \
         pkg-config \
         libswscale-dev \
         libtbb2 \
@@ -50,6 +51,7 @@ RUN apt update && \
         libgtk2.0-dev \
         pkg-config \
         ## Python
+RUN apt install -y \
         python-dev \
         python-numpy \
         python3-dev \
