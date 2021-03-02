@@ -12,21 +12,20 @@ ARG OPENCV_VERSION=4.5.0
 RUN apt update && \
     # Install build tools, build dependencies and python
     apt install -y \
-	    python-pip \
+	    python3-pip \
         build-essential \
         cmake \
         git \
-        # vim \
-        # tree \
-        # zip \
+        vim \
+        tree \
+        zip \
         unzip \
-        # libsm6 \
-        # libxext6 \
-        # libxrender-dev \
-        # libgl1-mesa-glx \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        libgl1-mesa-glx \
         wget \
-        yasm
-RUN apt install -y \
+        yasm \
         pkg-config \
         libswscale-dev \
         libtbb2 \
@@ -51,9 +50,8 @@ RUN apt install -y \
         libgtk2.0-dev \
         pkg-config \
         ## Python
-RUN apt install -y \
-        python-dev \
-        python-numpy \
+        # python-dev \
+        # python-numpy \
         python3-dev \
         python3-numpy \
     && rm -rf /var/lib/apt/lists/*
