@@ -11,7 +11,7 @@ ARG OPENCV_VERSION=4.5.0
 # Install essential packages
 RUN apt update && \
     # Install build tools, build dependencies and python
-    apt-get install -y \
+    apt install -y \
 	    python-pip \
         build-essential \
         cmake \
