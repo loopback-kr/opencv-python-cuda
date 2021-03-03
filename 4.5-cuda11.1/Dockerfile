@@ -3,16 +3,14 @@ FROM nvidia/cuda:11.1-devel-ubuntu20.04
 # Change default Shell to bash
 SHELL ["/bin/bash", "-c"]
 ENV TZ=Asia/Seoul
-
 # Change Ubuntu repository address to DaumKaKao (For Rep. of Korea)
 RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
-
 ARG OPENCV_VERSION=4.5.0
 
 # Install essential packages
 RUN apt update && \
-    # Install build tools, build dependencies and python
     apt install -y \
+    # Install build tools, build dependencies and python
 	    python3-pip \
         build-essential \
         cmake \
@@ -50,7 +48,6 @@ RUN apt update && \
         libtbb-dev \
         libgtk2.0-dev \
         pkg-config \
-        ## Python
         # python-dev \
         # python-numpy \
         python3-dev \
@@ -94,8 +91,8 @@ RUN mkdir ~/.pip && \
         > ~/.pip/pip.conf && \
     pip install --upgrade pip
 
-RUN pip install \
-    scikit-learn==0.23.1
+# RUN pip install \
+#     scikit-learn==0.23.1
 
 # Add alias
 RUN alias l="ls -alh --full-time" && \
