@@ -2,6 +2,7 @@ FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
 # Change default Shell to bash
 SHELL ["/bin/bash", "-c"]
+ENV TZ=Asia/Seoul
 
 # Change Ubuntu repository address to DaumKaKao (For Rep. of Korea)
 RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
