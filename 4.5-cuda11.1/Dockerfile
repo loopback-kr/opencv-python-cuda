@@ -91,7 +91,7 @@ RUN mkdir ~/.pip && \
 "trusted-host=mirror.kakao.com\n"\
 "progress-bar=emoji"\
         > ~/.pip/pip.conf && \
-    pip install --upgrade pip
+    pip3 install --upgrade pip
 
 # RUN pip install \
 #     scikit-learn==0.23.1
