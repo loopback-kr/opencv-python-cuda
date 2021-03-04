@@ -2,6 +2,7 @@ FROM nvidia/cuda:10.2-devel-ubuntu18.04
 
 # Change default Shell to bash
 SHELL ["/bin/bash", "-c"]
+ENV PYTHONIOENCODING=UTF-8
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
