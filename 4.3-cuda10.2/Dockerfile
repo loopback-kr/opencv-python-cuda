@@ -100,3 +100,6 @@ RUN mkdir ~/.pip && \
 # Add alias
 RUN alias l="ls -alh --full-time" && \
     alias cls='clear'
+
+# Delete unnecessary data
+RUN rm -rf /var/lib/apt/lists/*
