@@ -38,9 +38,6 @@ RUN apt update \
         build-essential \
         cmake \
         git \
-        vim \
-        tree \
-        zip \
         unzip \
         libsm6 \
         libxext6 \
