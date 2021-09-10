@@ -70,6 +70,7 @@ RUN apt update \
         pkg-config \
         python3-dev \
         python3-numpy \
+    && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Compile OpenCV-CUDA
