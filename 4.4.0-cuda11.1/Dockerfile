@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-c"]
 
 ### Set environment variables
 # Set Timezone
+ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Seoul
 # Set X Server remote address
 ENV DISPLAY=dev.loopback.kr:0
@@ -15,7 +16,7 @@ ENV PYTHONIOENCODING=UTF-8
 
 ### Change settings
 # Change Timezone
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Change bash shell prompt color of root account
 RUN sed -i 's/    xterm-color) color_prompt=yes;;/    #xterm-color) color_prompt=yes;;\n    xterm-color|*-256color) color_prompt=yes;;/' /root/.bashrc
 # Change original green color of bash shell prompt to red color
@@ -34,7 +35,8 @@ ARG OPENCV_VERSION=4.4.0
 RUN apt update \
     && apt install -y \
     # Install build tools, build dependencies and python
-	    python3-pip \
+	    tzdata \
+        python3-pip \
         build-essential \
         cmake \
         git \
@@ -107,5 +109,7 @@ RUN mkdir ~/.pip \
 "index-url=https://mirror.loopback.kr/pypi/simple/\n"\
 "trusted-host=mirror.loopback.kr\n"\
 "progress-bar=on"\
-        > ~/.pip/pip.conf \
+        > ~/.config/pip/pip.conf \
     && pip3 install -U pip
+
+WORKDIR /root/workspace
