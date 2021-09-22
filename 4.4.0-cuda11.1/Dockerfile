@@ -103,7 +103,7 @@ RUN cd /opt/ \
     && rm -rf /opt/opencv-${OPENCV_VERSION} && rm -rf /opt/opencv_contrib-${OPENCV_VERSION}
 
 # Configure default Pypi repository address and default progress bar style (For Rep. of Korea)
-RUN mkdir ~/.pip \
+RUN mkdir -p ~/.config/pip \
     && echo -e \
 "[global]\n"\
 "index-url=https://mirror.loopback.kr/pypi/simple/\n"\
