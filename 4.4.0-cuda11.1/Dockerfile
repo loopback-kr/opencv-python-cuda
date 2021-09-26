@@ -12,10 +12,6 @@ ENV TZ=Asia/Seoul
 ENV DISPLAY=dev.loopback.kr:0
 # Set python encoding type
 ENV PYTHONIOENCODING=UTF-8
-# Add Bash Alias
-RUN alias l="ls -alh --full-time" \
-    && alias cls='clear' \
-    && alias pip='pip3'
 
 
 ### Change settings
@@ -79,8 +75,6 @@ RUN apt update \
         python3-numpy \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
-RUN alias python3='python3.8' \
-    && alias python='python3.8'
 
 # Compile OpenCV-CUDA
 RUN cd /opt/ \
@@ -120,3 +114,9 @@ RUN mkdir -p ~/.config/pip \
     && pip3 install -U pip
 
 WORKDIR /root/workspace
+
+# Add Bash Alias
+RUN echo 'alias l="ls -alh --full-time"' >> ~/.bashrc
+RUN echo 'alias cls="clear"' >> ~/.bashrc
+RUN echo 'alias pip="pip3"' >> ~/.bashrc
+RUN echo 'alias python="python3.8"' >> ~/.bashrc
