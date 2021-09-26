@@ -12,6 +12,10 @@ ENV TZ=Asia/Seoul
 ENV DISPLAY=dev.loopback.kr:0
 # Set python encoding type
 ENV PYTHONIOENCODING=UTF-8
+# Add Bash Alias
+RUN alias l="ls -alh --full-time" \
+    && alias cls='clear' \
+    && alias pip='pip3'
 
 
 ### Change settings
@@ -36,6 +40,7 @@ RUN apt update \
     && apt install -y \
     # Install build tools, build dependencies and python
 	    tzdata \
+        python3.8 \
         python3-pip \
         build-essential \
         cmake \
@@ -74,6 +79,8 @@ RUN apt update \
         python3-numpy \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
+RUN alias python3='python3.8' \
+    && alias python='python3.8'
 
 # Compile OpenCV-CUDA
 RUN cd /opt/ \
