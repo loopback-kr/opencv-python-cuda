@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-devel-ubuntu18.04
+FROM nvidia/cuda:11.1-devel-ubuntu20.04
 
 # Change default Shell to bash
 SHELL ["/bin/bash", "-c"]
@@ -36,7 +36,6 @@ RUN apt update \
     && apt install -y \
     # Install build tools, build dependencies and python
 	    tzdata \
-        python3.8 \
         python3-pip \
         build-essential \
         cmake \
@@ -118,5 +117,3 @@ WORKDIR /root/workspace
 # Add Bash Alias
 RUN echo 'alias l="ls -alh --full-time"' >> ~/.bashrc
 RUN echo 'alias cls="clear"' >> ~/.bashrc
-RUN echo 'alias pip="pip3"' >> ~/.bashrc
-RUN echo 'alias python="python3.8"' >> ~/.bashrc
