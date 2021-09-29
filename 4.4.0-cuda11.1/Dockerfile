@@ -38,7 +38,7 @@ RUN apt update \
     && apt install -y \
     # Install build tools, build dependencies and python
 	    tzdata \
-        beep \
+        # beep \
         python3-pip \
         build-essential \
         cmake \
