@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.1-devel-ubuntu18.04
 
 # Change default Shell to bash
 SHELL ["/bin/bash", "-c"]
