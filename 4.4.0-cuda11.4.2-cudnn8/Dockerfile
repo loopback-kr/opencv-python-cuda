@@ -108,7 +108,7 @@ RUN mkdir -p ~/.config/pip \
 "[global]\n"\
 "index-url=https://mirror.loopback.kr/pypi/simple/\n"\
 "trusted-host=mirror.loopback.kr\n"\
-"progress-bar=on"\
+"progress-bar=emoji"\
         > ~/.config/pip/pip.conf \
     && pip3 install -U pip
 
