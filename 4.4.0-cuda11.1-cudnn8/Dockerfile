@@ -2,6 +2,8 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
 
 
 ### Set environment variables
+# Change default Shell to bash
+SHELL ["/bin/bash", "-c"]
 # Set Timezone
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Seoul
