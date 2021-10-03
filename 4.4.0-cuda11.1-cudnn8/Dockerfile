@@ -122,7 +122,8 @@ RUN echo 'alias cls="clear"' >> ~/.bashrc
 RUN echo 'alias python=python3' >> ~/.bashrc
 RUN echo 'alias pip=pip3' >> ~/.bashrc
 # Clean the cache
-RUN rm -rf /var/lib/apt/lists/* \
+RUN apt clean \
+    && rm -rf /var/lib/apt/lists/* \
     && pip3 cache purge
 # Set workspace
 WORKDIR /root/workspace
