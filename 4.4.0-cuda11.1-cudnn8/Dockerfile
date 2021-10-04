@@ -2,22 +2,13 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
 
 
 ### Set environment variables
-# Change default Shell to bash
-SHELL ["/bin/bash", "-c"]
-# Set Timezone
+# Set noninteract for tzdata
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Seoul
-# Set X Server remote address
-ENV DISPLAY=dev.loopback.kr:0
 # Set python encoding type
 ENV PYTHONIOENCODING=UTF-8
-# Set Beep theme
-ENV BEEP_MARIO='-f 130 -l 100 -n -f 262 -l 100 -n -f 330 -l 100 -n -f 392 -l 100 -n -f 523 -l 100 -n -f 660 -l 100 -n -f 784 -l 300 -n -f 660 -l 300 -n -f 146 -l 100 -n -f 262 -l 100 -n -f 311 -l 100 -n -f 415 -l 100 -n -f 523 -l 100 -n -f 622 -l 100 -n -f 831 -l 300 -n -f 622 -l 300 -n -f 155 -l 100 -n -f 294 -l 100 -n -f 349 -l 100 -n -f 466 -l 100 -n -f 588 -l 100 -n -f 699 -l 100 -n -f 933 -l 300 -n -f 933 -l 100 -n -f 933 -l 100 -n -f 933 -l 100 -n -f 1047 -l 400'
 
 
 ### Change settings
-# Change Timezone
-# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Change bash shell prompt color of root account
 RUN sed -i 's/    xterm-color) color_prompt=yes;;/    #xterm-color) color_prompt=yes;;\n    xterm-color|*-256color) color_prompt=yes;;/' /root/.bashrc
 # Change original green color of bash shell prompt to red color
