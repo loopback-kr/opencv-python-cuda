@@ -2,6 +2,8 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
 
 
 ### Set environment variables
+# Change default Shell to bash
+SHELL ["/bin/bash", "-c"]
 # Set noninteract for tzdata
 ARG DEBIAN_FRONTEND=noninteractive
 # Set python encoding type
