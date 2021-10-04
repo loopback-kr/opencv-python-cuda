@@ -16,12 +16,12 @@ RUN sed -i 's/    xterm-color) color_prompt=yes;;/    #xterm-color) color_prompt
 # Change original green color of bash shell prompt to red color
 RUN sed -i 's/    PS1=\x27${debian_chroot:+(\$debian_chroot)}\\\[\\033\[01;32m\\\]\\u@\\h\\\[\\033\[00m\\\]:\\\[\\033\[01;34m\\\]\\w\\\[\\033\[00m\\\]\\\$ \x27/    PS1=\x27\${debian_chroot:+(\$debian_chroot)}\\\[\\033\[01;31m\\\]\\u@\\h\\\[\\033\[00m\\\]:\\\[\\033\[01;34m\\\]\\w\\\[\\033\[00m\\\]\\\$ \x27/' /root/.bashrc
 # Install essential packages
-# RUN apt update \
-#     && apt install -y \
-#         tzdata \
-#         beep \
-#         git \
-#         ca-certificates
+RUN apt update \
+    && apt install -y \
+        tzdata \
+        beep \
+        git \
+        ca-certificates
 # Change Ubuntu repository address to Kakao server in Republic of Korea
 # RUN sed -i 's/^deb http:\/\/archive.ubuntu.com/deb https:\/\/mirror.loopback.kr/g' /etc/apt/sources.list
 # RUN sed -i 's/^deb http:\/\/security.ubuntu.com/deb https:\/\/mirror.loopback.kr/g' /etc/apt/sources.list
