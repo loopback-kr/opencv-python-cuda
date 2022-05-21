@@ -37,7 +37,7 @@ RUN sed -i 's/^deb http:\/\/security.ubuntu.com/deb http:\/\/mirror.kakao.com/g'
 
 ### Setup requirements
 # OpenCV build arguments
-ARG OPENCV_VERSION=4.4.0
+ARG OPENCV_VERSION=4.5.5
 # Install build packages
 RUN apt update \
     && apt install -y \
