@@ -1,5 +1,4 @@
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
-
+FROM nvidia/cuda:11.7.0-devel-ubuntu22.04
 
 ### Set environment variables
 # Change default Shell to bash
