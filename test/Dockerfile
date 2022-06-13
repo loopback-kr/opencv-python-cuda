@@ -30,5 +30,75 @@ RUN apt update \
 RUN sed -i 's/^deb http:\/\/archive.ubuntu.com/deb http:\/\/mirror.kakao.com/g' /etc/apt/sources.list
 RUN sed -i 's/^deb http:\/\/security.ubuntu.com/deb http:\/\/mirror.kakao.com/g' /etc/apt/sources.list
 
+### Setup requirements
+# OpenCV build arguments
+ARG OPENCV_VERSION=4.5.5
+# Install build packages
+RUN apt update \
+    && apt install -y \
+    # Install build tools, build dependencies and python
+        wget \
+        unzip \
+        cmake \
+        build-essential \
+        pkg-config \
+        python3-pip \
+        python3-tk \
+        python3-dev \
+        python3-numpy \
+        yasm \
+        zlib1g-dev \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        libgl1-mesa-glx \
+        libswscale-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavformat-dev \
+        libpq-dev \
+        libxine2-dev \
+        libglew-dev \
+        libtiff5-dev \
+        libjpeg-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libavutil-dev \
+        libpostproc-dev \
+        libswscale-dev \
+        libeigen3-dev \
+        libtbb-dev \
+        libgtk2.0-dev
+
+# Compile OpenCV-CUDA
+RUN cd /opt/ \
+    # Download and unzip OpenCV and opencv_contrib and delte zip files
+    && wget https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip \
+    && unzip $OPENCV_VERSION.zip \
+    && rm $OPENCV_VERSION.zip \
+    && wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip \
+    && unzip ${OPENCV_VERSION}.zip \
+    && rm ${OPENCV_VERSION}.zip \
+    # Create build folder and switch to it
+    && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build \
+    # Cmake configure
+    && cmake \
+        -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+        -DWITH_CUDA=ON \
+        -DCMAKE_BUILD_TYPE=RELEASE \
+        # Install path will be /usr/local/lib (lib is implicit)
+        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        .. \
+    # Make
+    && make -j"$(nproc)" \
+    # Install to /usr/local/lib
+    && make install \
+    && ldconfig \
+    # Remove OpenCV sources and build folder
+    && rm -rf /opt/opencv-${OPENCV_VERSION} && rm -rf /opt/opencv_contrib-${OPENCV_VERSION}
+
 # Set workspace
 WORKDIR /root/workspace
