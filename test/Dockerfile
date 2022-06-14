@@ -89,10 +89,11 @@ RUN cd /opt/ \
     && unzip $OPENCV_VERSION.zip \
     && rm $OPENCV_VERSION.zip \
     && wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip \
-    && unzip ${OPENCV_VERSION}.zip \
-    && rm ${OPENCV_VERSION}.zip \
+    && unzip $OPENCV_VERSION.zip \
+    && rm $OPENCV_VERSION.zip \
     # Create build folder and switch to it
-    && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build
+    && mkdir /opt/opencv-${OPENCV_VERSION}/build \
+    && cd /opt/opencv-${OPENCV_VERSION}/build
     # Cmake configure
     # && cmake \
     #     -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
@@ -101,6 +102,7 @@ RUN cd /opt/ \
     #     # Install path will be /usr/local/lib (lib is implicit)
     #     -DCMAKE_INSTALL_PREFIX=/usr/local \
     #     .. \
+# CMake configure
 RUN cmake \
         -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -142,9 +144,9 @@ RUN cmake \
         -D CUDA_ARCH_PTX=8.6 \
         -D CUDNN_LIBRARY=/usr/lib/x86_64-linux-gnu/libcudnn.so.8.4.0 \
         -D CUDNN_INCLUDE_DIR=/usr/local/cuda/include \
-        .. \
-    # Make
-    && make -j"$(nproc)" \
+        ..
+# Make
+RUN make -j"$(nproc)" \
     # Install to /usr/local/lib
     && make install \
     && ldconfig \
