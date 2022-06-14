@@ -79,26 +79,26 @@ RUN apt update \
         libgtk2.0-dev
 
 # Compile OpenCV-CUDA
-RUN cd /opt/ \
-    # Download and unzip OpenCV and opencv_contrib and delte zip files
-    && wget https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip \
-    && unzip $OPENCV_VERSION.zip \
-    && rm $OPENCV_VERSION.zip \
-    && wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip \
+WORKDIR /opt
+# Download and unzip OpenCV and opencv_contrib and delte zip files
+RUN wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip \
+    && unzip ${OPENCV_VERSION}.zip \
+    && rm ${OPENCV_VERSION}.zip \
+    && wget https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.zip \
     && unzip ${OPENCV_VERSION}.zip \
     && rm ${OPENCV_VERSION}.zip \
     # Create build folder and switch to it
-    && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build \
+    && mkdir /opt/opencv-${OPENCV_VERSION}/build
+WORKDIR /opt/opencv-${OPENCV_VERSION}/build
     # Cmake configure
-    && cmake \
-        -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
-        -DWITH_CUDA=ON \
-        -DCMAKE_BUILD_TYPE=RELEASE \
-        # Install path will be /usr/local/lib (lib is implicit)
-        -DCMAKE_INSTALL_PREFIX=/usr/local \
-        .. \
-    # Make
-    && make -j"$(nproc)" \
+RUN cmake \
+    -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+    -D WITH_CUDA=ON \
+    -D CMAKE_BUILD_TYPE=RELEASE \
+    # Install path will be /usr/local/lib (lib is implicit)
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    ..
+RUN make -j"$(nproc)" \
     # Install to /usr/local/lib
     && make install \
     && ldconfig \
