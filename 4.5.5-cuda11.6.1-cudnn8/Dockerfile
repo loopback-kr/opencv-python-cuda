@@ -118,7 +118,7 @@ RUN cmake \
         -D WITH_1394=OFF \
         -D WITH_GTK=ON \
         -D WITH_QT=OFF \
-        -D WITH_OPENGL=ON \
+        # -D WITH_OPENGL=ON \
         -D WITH_EIGEN=ON \
         -D WITH_FFMPEG=ON \
         -D WITH_GSTREAMER=ON \
@@ -130,12 +130,12 @@ RUN cmake \
         -D OPENCV_GENERATE_PKGCONFIG=ON \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
-        -D WITH_CUDNN=ON \
-        -D OPENCV_DNN_CUDA=ON \
-        -D CUDA_ARCH_BIN=8.6 \
-        -D CUDA_ARCH_PTX=8.6 \
-        -D CUDNN_LIBRARY=/usr/lib/x86_64-linux-gnu/libcudnn.so.8.4.0 \
-        -D CUDNN_INCLUDE_DIR=/usr/local/cuda/include \
+        # -D WITH_CUDNN=ON \
+        # -D OPENCV_DNN_CUDA=ON \
+        # -D CUDA_ARCH_BIN=8.6 \
+        # -D CUDA_ARCH_PTX=8.6 \
+        # -D CUDNN_LIBRARY=/usr/lib/x86_64-linux-gnu/libcudnn.so.8.4.0 \
+        # -D CUDNN_INCLUDE_DIR=/usr/local/cuda/include \
         ..
 RUN make -j"$(nproc)" \
     # Install to /usr/local/lib
