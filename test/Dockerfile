@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.0-devel-ubuntu22.04
+FROM nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04
 
 ### Set environment variables
 # Change default Shell to bash
@@ -47,31 +47,40 @@ RUN apt update \
         python3-dev \
         python3-numpy \
         yasm \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff5-dev \
+        ffmpeg \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        libxvidcore-dev \
+        libx264-dev \
+        libxine2-dev \
+        libv4l-dev \
+        v4l-utils \
+        libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev  \
+        libgtk-3-dev \
+        libgtkgl2.0-dev \
+        libgtkglext1-dev \
+        mesa-utils \
+        libgl1-mesa-dri \
+        libatlas-base-dev \
+        gfortran \
+        libeigen3-dev \
         zlib1g-dev \
         libsm6 \
         libxext6 \
         libxrender-dev \
         libgl1-mesa-glx \
-        libswscale-dev \
         libtbb2 \
         libtbb-dev \
-        libjpeg-dev \
-        libpng-dev \
         libtiff-dev \
-        libavformat-dev \
         libpq-dev \
-        libxine2-dev \
         libglew-dev \
-        libtiff5-dev \
-        libjpeg-dev \
-        libavcodec-dev \
-        libavformat-dev \
         libavutil-dev \
-        libpostproc-dev \
-        libswscale-dev \
-        libeigen3-dev \
-        libtbb-dev \
-        libgtk2.0-dev
+        libpostproc-dev
 
 # Compile OpenCV-CUDA
 RUN cd /opt/ \
@@ -85,12 +94,54 @@ RUN cd /opt/ \
     # Create build folder and switch to it
     && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build \
     # Cmake configure
+    # && cmake \
+    #     -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+    #     -DWITH_CUDA=ON \
+    #     -DCMAKE_BUILD_TYPE=RELEASE \
+    #     # Install path will be /usr/local/lib (lib is implicit)
+    #     -DCMAKE_INSTALL_PREFIX=/usr/local \
+    #     .. \
     && cmake \
-        -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
-        -DWITH_CUDA=ON \
-        -DCMAKE_BUILD_TYPE=RELEASE \
-        # Install path will be /usr/local/lib (lib is implicit)
-        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        -D INSTALL_PYTHON_EXAMPLES=ON \
+        -D INSTALL_C_EXAMPLES=ON \
+        -D BUILD_DOCS=OFF \
+        -D BUILD_PERF_TESTS=OFF \
+        -D BUILD_TESTS=OFF \
+        -D BUILD_PACKAGE=OFF \
+        -D BUILD_EXAMPLES=OFF \
+        -D WITH_TBB=ON \
+        -D ENABLE_FAST_MATH=1 \
+        -D CUDA_FAST_MATH=1 \
+        -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+        -D WITH_CUDA=ON \
+        -D WITH_CUBLAS=ON \
+        -D WITH_CUFFT=ON \
+        -D WITH_NVCUVID=ON \
+        -D WITH_IPP=OFF \
+        -D WITH_V4L=ON \
+        -D WITH_1394=OFF \
+        -D WITH_GTK=ON \
+        -D WITH_QT=OFF \
+        -D WITH_OPENGL=ON \
+        -D WITH_EIGEN=ON \
+        -D WITH_FFMPEG=ON \
+        -D WITH_GSTREAMER=ON \
+        -D BUILD_JAVA=OFF \
+        -D BUILD_opencv_python3=ON \
+        -D BUILD_opencv_python2=OFF \
+        -D BUILD_NEW_PYTHON_SUPPORT=ON \
+        -D OPENCV_SKIP_PYTHON_LOADER=ON \
+        -D OPENCV_GENERATE_PKGCONFIG=ON \
+        -D OPENCV_ENABLE_NONFREE=ON \
+        -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+        -D WITH_CUDNN=ON \
+        -D OPENCV_DNN_CUDA=ON \
+        -D CUDA_ARCH_BIN=8.6 \
+        -D CUDA_ARCH_PTX=8.6 \
+        -D CUDNN_LIBRARY=/usr/lib/x86_64-linux-gnu/libcudnn.so.8.4.0 \
+        -D CUDNN_INCLUDE_DIR=/usr/local/cuda/include \
         .. \
     # Make
     && make -j"$(nproc)" \
