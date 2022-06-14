@@ -2,7 +2,7 @@ FROM nvidia/cuda:11.6.1-cudnn8-devel-ubuntu20.04
 
 ### Set environment variables
 # Change default Shell to bash
-# SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/bash", "-c"]
 # Set Timezone
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Seoul
@@ -92,7 +92,7 @@ RUN cd /opt/ \
     && unzip ${OPENCV_VERSION}.zip \
     && rm ${OPENCV_VERSION}.zip \
     # Create build folder and switch to it
-    && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build \
+    && mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build
     # Cmake configure
     # && cmake \
     #     -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
@@ -101,7 +101,7 @@ RUN cd /opt/ \
     #     # Install path will be /usr/local/lib (lib is implicit)
     #     -DCMAKE_INSTALL_PREFIX=/usr/local \
     #     .. \
-    && cmake \
+RUN cmake \
         -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         -D INSTALL_PYTHON_EXAMPLES=ON \
